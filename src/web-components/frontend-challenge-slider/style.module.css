@@ -1,0 +1,5 @@
+/* Add normalize.css to module */
+@import "./../../../node_modules/normalize.css/normalize.css";
+
+/* Add custom style to module */
+@import "./style.css";

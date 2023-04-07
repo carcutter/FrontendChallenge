@@ -1,0 +1,55 @@
+{
+  "name": "web-player",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "./src/index.js",
+  "scripts": {
+    "build": "webpack --env prod",
+    "serve": "webpack serve",
+    "validate": "webpack serve --env prod",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carcutter/FrontendChallenge.git"
+  },
+  "author": "Markus Füreder",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/carcutter/FrontendChallenge/issues"
+  },
+  "homepage": "https://github.com/carcutter/FrontendChallenge#readme",
+  "devDependencies": {
+    "@babel/core": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/glidejs": "1.0.31",
+    "@types/glidejs__glide": "3.6.1",
+    "@types/jest": "^29.4.0",
+    "@types/uuid": "^8.3.4",
+    "babel-jest": "^29.4.3",
+    "babel-loader": "^8.3.0",
+    "css-loader": "^6.6.0",
+    "jest": "^29.4.3",
+    "jest-environment-jsdom": "^29.4.3",
+    "jsonschema": "^1.4.1",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "raw-loader": "^4.0.2",
+    "sass": "^1.49.7",
+    "terser-webpack-plugin": "^5.3.1",
+    "ts-jest": "^29.0.5",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.8.2",
+    "typescript-plugin-css-modules": "^2.8.0",
+    "typings-for-css-modules-loader": "^1.7.0",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "dependencies": {
+    "construct-style-sheets-polyfill": "^3.1.0",
+    "normalize.css": "^8.0.1",
+    "is-mobile": "^3.1.1"
+  }
+}
