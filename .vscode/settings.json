@@ -1,0 +1,19 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "[markdown]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": false,
+    "editor.rulers": [100]
+  },
+  "cSpell.words": [
+    "Datasource",
+    "datasources",
+    "restapiexample",
+    "tailwind",
+    "tailwindcss",
+    "tanstack"
+  ]
+}
