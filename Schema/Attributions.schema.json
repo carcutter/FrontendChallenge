@@ -1,0 +1,139 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "array",
+    "title": "Attributions schema",
+    "description": "The schema that validates attributions JSON files.",
+    "default": [],
+    "examples": [
+        [
+            {
+                "name": "GLFW",
+                "version": "3.3.7",
+                "website": "https://www.glfw.org/",
+                "isProprietary": false,
+                "license": "zlib License",
+                "licenseText": "https://raw.githubusercontent.com/glfw/glfw/master/LICENSE.md"
+            }
+        ]
+    ],
+    "additionalItems": true,
+    "items": {
+        "$id": "#/items",
+        "anyOf": [
+            {
+                "$id": "#/items/anyOf/0",
+                "type": "object",
+                "title": "The description of one dependency of the project",
+                "description": "This object describes all license-related information of one dependency of the project.",
+                "default": {},
+                "examples": [
+                    {
+                        "name": "GLFW",
+                        "version": "3.3.7",
+                        "website": "https://www.glfw.org/",
+                        "isProprietary": false,
+                        "isDistributed": true,
+                        "license": "zlib License",
+                        "licenseText": "https://raw.githubusercontent.com/glfw/glfw/master/LICENSE.md"
+                    }
+                ],
+                "required": [
+                    "name",
+                    "version",
+                    "website",
+                    "isProprietary",
+                    "license",
+                    "licenseText"
+                ],
+                "properties": {
+                    "name": {
+                        "$id": "#/items/anyOf/0/properties/name",
+                        "type": "string",
+                        "title": "The name of a dependency",
+                        "description": "The official name of the dependency (as written and stylized by the author).",
+                        "default": "",
+                        "examples": [
+                            "GLFW"
+                        ]
+                    },
+                    "version": {
+                        "$id": "#/items/anyOf/0/properties/version",
+                        "type": "string",
+                        "title": "The version of a dependency",
+                        "description": "The version of the dependency as used within the project.",
+                        "default": "",
+                        "examples": [
+                            "3.3.7"
+                        ]
+                    },
+                    "website": {
+                        "$id": "#/items/anyOf/0/properties/website",
+                        "type": "string",
+                        "format": "uri",
+                        "pattern": "^(https|http):\/\/",
+                        "title": "The website of the dependency",
+                        "description": "The URL of the official website of the dependency.",
+                        "default": "",
+                        "examples": [
+                            "https://www.glfw.org/"
+                        ]
+                    },
+                    "isProprietary": {
+                        "$id": "#/items/anyOf/0/properties/isProprietary",
+                        "type": "boolean",
+                        "title": "Is a proprietary dependency",
+                        "description": "Flag indicating whether or not this dependency is proprietary.",
+                        "default": false,
+                        "examples": [
+                            false
+                        ]
+                    },
+                    "isModified": {
+                        "$id": "#/items/anyOf/0/properties/isModified",
+                        "type": "boolean",
+                        "title": "Is a dependency which has been modified",
+                        "description": "Flag indicating whether or not this dependency has been modified.",
+                        "default": false,
+                        "examples": [
+                            false
+                        ]
+                    },
+                    "isDistributed": {
+                        "$id": "#/items/anyOf/0/properties/isDistributed",
+                        "type": "boolean",
+                        "title": "Is a distributed dependency",
+                        "description": "Flag indicating whether or not this dependency is distributed.",
+                        "default": false,
+                        "examples": [
+                            false
+                        ]
+                    },
+                    "license": {
+                        "$id": "#/items/anyOf/0/properties/license",
+                        "type": "string",
+                        "title": "Name of the license of this dependency",
+                        "description": "The official name of the license used by this dependency.",
+                        "default": "",
+                        "examples": [
+                            "zlib License"
+                        ]
+                    },
+                    "licenseText": {
+                        "$id": "#/items/anyOf/0/properties/licenseText",
+                        "type": "string",
+                        "format": "uri",
+                        "pattern": "^(https|http):\/\/",
+                        "title": "The URL of the license file of the dependency",
+                        "description": "The URL pointing to the license file of the dependency.",
+                        "default": "",
+                        "examples": [
+                            "https://raw.githubusercontent.com/glfw/glfw/master/LICENSE.md"
+                        ]
+                    }
+                },
+                "additionalProperties": true
+            }
+        ]
+    }
+}

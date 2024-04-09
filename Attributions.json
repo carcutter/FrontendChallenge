@@ -1,0 +1,11 @@
+[
+    {
+        "name": "GLFW",
+        "version": "3.3.7",
+        "website": "https://www.glfw.org/",
+        "isProprietary": false,
+        "isModified": false,
+        "license": "zlib License",
+        "licenseText": "https://raw.githubusercontent.com/glfw/glfw/master/LICENSE.md"
+    }
+]
