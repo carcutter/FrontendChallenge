@@ -28,7 +28,7 @@ Where `<type>` is the type of contribution, which can be one of:
 - `ci` A change related to CI.
 - `build` A change related to building this project (dependencies, fixes, etc.).
 - `docs` Documentation change.
-- `refactor` None of the above. 
+- `refactor` None of the above.
 
 Where `[optional scope]` is the scope of the change, such as `App`, `Lib`, as these can vary over time, coordination and adherence to previously used scopes is important.
 

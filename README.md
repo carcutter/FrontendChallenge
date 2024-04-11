@@ -29,23 +29,22 @@ By default, the app is reachable at `http://127.0.0.1:3000`
 
 ### Setup
 
-Currently we are using node 20.9 so we recommend to use `nvm`.
+Currently we are using node `20.9` so we recommend to use `nvm`.
 
 Install `nvm` by following this
 [guide](https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/).
 
-Install node 19:
+Install and use node `20.9`:
 
 ```bash
-$ nvm install node
-$ nvm install 20.9
+$ nvm use
 ```
 
 > [!TIP]
 > Don't forget to install the node packages:
 
 ```bash
-$ nvm exec 20.9 npm install
+$ npm i
 ```
 
 ### Formatting

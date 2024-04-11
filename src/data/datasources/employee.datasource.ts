@@ -10,7 +10,7 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
   public async getEmployeeList(): Promise<EmployeeListModel | undefined> {
     try {
       const response = await fetch(
-        "https://dummy.restapiexample.com/api/v1/employees"
+        "https://dummy.restapiexample.com/api/v1/employees",
       );
 
       // Validate response
@@ -30,25 +30,25 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
   }
 
   public async createEmployee(
-    params: unknown
+    params: unknown,
   ): Promise<EmployeeModel | undefined> {
     throw new Error("Method not implemented.");
   }
 
   public async getEmployeeById(
-    params: GetEmployeeByIdParams
+    params: GetEmployeeByIdParams,
   ): Promise<EmployeeModel | undefined> {
     throw new Error("Method not implemented.");
   }
 
   public async updateEmployeeById(
-    params: unknown
+    params: unknown,
   ): Promise<EmployeeModel | undefined> {
     throw new Error("Method not implemented.");
   }
 
   public deleteEmployeeById(
-    params: unknown
+    params: unknown,
   ): Promise<EmployeeModel | undefined> {
     throw new Error("Method not implemented.");
   }
