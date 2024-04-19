@@ -1,0 +1,16 @@
+!.storybook/*
+node_modules
+dist
+.cache
+.docker
+.git
+.github
+.localizely
+.next
+.npm
+.ssh
+.vscode
+.vscode-server*
+public
+tests
+__tests__

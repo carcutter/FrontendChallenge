@@ -1,0 +1,11 @@
+.cache
+.docker
+.localizely
+.npm
+.next
+.ssh
+.vscode-server*
+dist
+node_modules
+
+**.config.js
