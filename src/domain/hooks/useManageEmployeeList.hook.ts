@@ -21,15 +21,19 @@ export const useEmployeeManagement = () => {
 
   const [filteredEmployees, setFilteredEmployees] = useState<
     Partial<EmployeeModel[]>
-  >(data || []);
+  >([]);
   const [sortType, setSortType] = useState(EmployeeFilterEnum.ID);
   const [sortAscending, setSortAscending] = useState(true);
 
   useEffect(() => {
+    filterAndSortEmployees();
+  }, [searchQuery, sortType, sortAscending]);
+
+  useEffect(() => {
     if (data && !isLoading) {
-      filterAndSortEmployees();
+      setFilteredEmployees(data);
     }
-  }, [data, isLoading, searchQuery, sortType, sortAscending]);
+  }, [data, isLoading]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value.toLowerCase());
@@ -37,6 +41,7 @@ export const useEmployeeManagement = () => {
 
   const filterAndSortEmployees = () => {
     let filtered;
+    console.log("searchQuery: ", searchQuery);
     if (searchQuery === "") {
       filtered = data;
     } else {
@@ -47,7 +52,9 @@ export const useEmployeeManagement = () => {
           emp?.employee_salary.toString().includes(searchQuery)
       );
     }
-    setFilteredEmployees(sortEmployees(filtered as EmployeeModel[]));
+    console.log("filtered: ", filtered);
+    const final = sortEmployees(filtered as EmployeeModel[]);
+    setFilteredEmployees([...final]);
   };
 
   const sortEmployees = (employees: EmployeeModel[]) => {
@@ -55,7 +62,7 @@ export const useEmployeeManagement = () => {
     return employees?.sort((a, b) => {
       let keyA = a[sortType];
       let keyB = b[sortType];
-      if (sortType !== "id") {
+      if (sortType !== EmployeeFilterEnum.ID) {
         // Assuming non-numeric sorting needs to be case insensitive
         keyA = typeof keyA === "string" ? keyA.toLowerCase() : keyA;
         keyB = typeof keyB === "string" ? keyB.toLowerCase() : keyB;

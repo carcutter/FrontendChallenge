@@ -1,10 +1,10 @@
 "use client";
 
+import { useUpdateEmployee } from "@/domain/hooks/useEmployeeApi.hook";
+import EmployeeForm from "@/ui/components/EmployeeForm.component";
+
 export default function EditEmployeePage() {
-  // TODO Implement edit / update employee page
-  return (
-    <main className="flex h-screen flex-col items-start justify-start p-4">
-      Edit Employee
-    </main>
-  );
+  const { mutate } = useUpdateEmployee();
+
+  return <EmployeeForm title="Edit Employee" submit={mutate} />;
 }
