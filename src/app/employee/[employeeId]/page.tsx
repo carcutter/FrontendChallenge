@@ -17,16 +17,19 @@ type params = {
 export default function EmployeePage({ params }: params) {
   const { employeeId } = params;
   const { data: employee, isLoading, isError } = useGetEmployeeById({ id: +employeeId });
-  const { mutate, isSuccess, isPending } = useDeleteEmployeeById(
-    () => toast.success('Employee data has been removed!'),
-    () => toast.error('Some issues while removing employee, please try again later'),
-  );
+  const { mutateAsync, isSuccess, isPending } = useDeleteEmployeeById();
   const router = useRouter();
   const queryClient = useQueryClient();
 
   const handleDelete = useCallback(() => {
-    mutate({ id: +employeeId });
-  }, [mutate, employeeId]);
+    mutateAsync({ id: +employeeId })
+      .then(response => {
+        if (response) {
+          toast.success('Employee data has been removed!');
+        }
+        return toast.error('Some issues while removing employee, please try again later');
+      });
+  }, [mutateAsync, employeeId]);
 
   useEffect(() => {
     if (isSuccess) {

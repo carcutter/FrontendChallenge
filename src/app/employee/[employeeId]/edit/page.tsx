@@ -18,10 +18,7 @@ export default function EditEmployeePage({ params }: params) {
   const { data: employee, isLoading, isError } = useGetEmployeeById({ id: +employeeId });
   const queryClient = useQueryClient();
   const [formData, setFormData] = useState<EmployeeModel | undefined>(employee);
-  const { mutate, isPending, isSuccess, isError: isErrorInUpdate } = useUpdateEmployeeById(
-    () => toast.success(`Employee data for ${employeeId} has been updated!`),
-    () => toast.error(`Error! Employee data for ${employeeId} can not be update, please try again later.`)
-  );
+  const { mutateAsync, isPending, isSuccess, isError: isErrorInUpdate } = useUpdateEmployeeById();
 
   useEffect(() => {
     if (employee) {
@@ -34,9 +31,17 @@ export default function EditEmployeePage({ params }: params) {
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
+
     if (!formData) return;
-    mutate(formData);
-  }, [mutate, formData]);
+
+    mutateAsync(formData)
+      .then(response => {
+        if (response?.id) {
+          return toast.success(`Employee data for ${employeeId} has been updated!`)
+        }
+        return toast.error(`Error! Employee data for ${employeeId} can not be update, please try again later.`)
+      });
+  }, [mutateAsync, formData, employeeId]);
 
   useEffect(() => {
     if (isSuccess) {

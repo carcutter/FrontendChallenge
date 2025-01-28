@@ -5,11 +5,9 @@ import EmployeeService from "../services/employee.service";
 
 const service = EmployeeService.getInstance();
 
-export const useUpdateEmployeeById = (onSuccess: () => void, onError: () => void) => {
+export const useUpdateEmployeeById = () => {
   return useMutation({
     mutationKey: ['useUpdateEmployeeById'],
     mutationFn: (employee: EmployeeModel) => service.updateEmployeeById(employee),
-    onSuccess,
-    onError
   });
 };
