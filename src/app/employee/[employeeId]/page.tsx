@@ -1,16 +1,34 @@
 "use client";
 
-import { EmployeeModel } from "@/domain/models/employee.model";
+import { useGetEmployeeById } from "@/domain/hooks/useGetEmployeeById.hook";
 import EmployeeCard from "@/ui/components/EmployeeCard.component";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
-export default function EditEmployeePage() {
-  // TODO Implement employee details page and delete feature
-  const employee: EmployeeModel = {
-    id: 2,
-    employee_name: "Mock Employee",
-    employee_salary: 10_000_000,
-  };
+export default function EmployeePage({
+  params,
+}: {
+  params: { employeeId: string };
+}) {
+  const parsedEmployeeId = Number(params.employeeId);
+  if (isNaN(parsedEmployeeId)) {
+    return notFound();
+  }
+
+  const {
+    data: employee,
+    isLoading,
+    isError,
+  } = useGetEmployeeById(parsedEmployeeId);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (employee === undefined || isError) {
+    return notFound();
+  }
+
   return (
     <main className="flex h-screen flex-col items-start justify-start p-4 gap-4">
       <h1>Employee Details</h1>
