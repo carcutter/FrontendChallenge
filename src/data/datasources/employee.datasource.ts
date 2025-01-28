@@ -4,29 +4,23 @@ import {
   EmployeeListSchema,
   EmployeeModel,
 } from "@/domain/models/employee.model";
+import { getResponseSchema } from "@/domain/models/response.model";
 import { GetEmployeeByIdParams } from "@/domain/params/employee.param";
 
 export default class EmployeeDatasource extends EmployeeDatasourceContract {
-  public async getEmployeeList(): Promise<EmployeeListModel | undefined> {
-    try {
-      const response = await fetch(
-        "https://dummy.restapiexample.com/api/v1/employees",
-      );
+  // public baseUrl = "https://dummy.restapiexample.com/api/v1/employees";
+  public baseUrl = "http://localhost:4000/api/v1";
 
-      // Validate response
-      if (response.status !== 200) {
-        return undefined;
-      }
+  public async getEmployeeList(): Promise<EmployeeListModel> {
+    const response = await fetch(`${this.baseUrl}/employees`);
 
-      // Obtain json from response
-      const json = await response.json();
-      // Extract data
-      const data = json["data"];
-
-      return EmployeeListSchema.parse(data);
-    } catch (exception) {
-      return undefined;
+    if (response.status !== 200) {
+      throw new Error("Failed");
     }
+
+    const json = await response.json();
+
+    return getResponseSchema(EmployeeListSchema).parse(json).data;
   }
 
   public async createEmployee(
