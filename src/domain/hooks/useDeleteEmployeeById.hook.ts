@@ -5,9 +5,11 @@ import EmployeeService from "../services/employee.service";
 
 const service = EmployeeService.getInstance();
 
-export const useDeleteEmployeeById = (param: GetEmployeeByIdParams) => {
+export const useDeleteEmployeeById = (onSuccess: () => void, onError: () => void) => {
   return useMutation({
-    mutationKey: ["deleteEmployeeById", param.id],
-    mutationFn: () => service.deleteEmployeeById(param),
+    mutationKey: ["deleteEmployeeById"],
+    mutationFn: (param: GetEmployeeByIdParams) => service.deleteEmployeeById(param),
+    onSuccess,
+    onError
   });
 };

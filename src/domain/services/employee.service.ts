@@ -27,9 +27,7 @@ export default class EmployeeService {
   ): Promise<EmployeeModel | undefined> {
     return this.datasource.getEmployeeById(params);
   }
-  public updateEmployeeById(
-    params: unknown,
-  ): Promise<EmployeeModel | undefined> {
+  public updateEmployeeById(params: Partial<EmployeeModel>): Promise<EmployeeModel | undefined> {
     return this.datasource.updateEmployeeById(params);
   }
   public deleteEmployeeById(params: GetEmployeeByIdParams): Promise<string | undefined> {

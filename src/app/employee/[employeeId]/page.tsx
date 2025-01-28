@@ -10,41 +10,46 @@ import { useDeleteEmployeeById } from "@/domain/hooks/useDeleteEmployeeById.hook
 import { useGetEmployeeById } from "@/domain/hooks/useGetEmployeeById.hook";
 import EmployeeCard from "@/ui/components/EmployeeCard.component";
 
-export default function EditEmployeePage({ employeeId }: { employeeId: string }) {
+type params = {
+  params: { employeeId: string }
+}
+
+export default function EmployeePage({ params }: params) {
+  const { employeeId } = params;
   const { data: employee, isLoading, isError } = useGetEmployeeById({ id: +employeeId });
-  const { mutate, isSuccess, isError: isDeleteError, isPending } = useDeleteEmployeeById({ id: +employeeId });
+  const { mutate, isSuccess, isPending } = useDeleteEmployeeById(
+    () => toast.success('Employee data has been removed!'),
+    () => toast.error('Some issues while removing employee, please try again later'),
+  );
   const router = useRouter();
   const queryClient = useQueryClient();
 
   const handleDelete = useCallback(() => {
-    mutate();
-  }, [mutate]);
+    mutate({ id: +employeeId });
+  }, [mutate, employeeId]);
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success('Employee data has been removed!');
       queryClient.invalidateQueries({ queryKey: ['getEmployeeList'] });
       router.push('/');
-    }
-    if (isDeleteError) {
-      toast.error('Some issues while removing employee, please try again later');
     }
     if (isError) {
       toast.error('Some issues while fetching employee, please try again later');
     }
-  }, [isSuccess, router, isDeleteError, isError]);
+  }, [isSuccess, router, isError, queryClient]);
 
   return (
     <main className="flex h-screen flex-col items-start justify-start p-4 gap-4">
+      <h1>Employee Details</h1>
       {
         employee && (
           <div className="flex flex-col gap-2">
-            <Link className="border px-2 py-1 rounded-md" href={`/`}>
+            <Link className="border px-2 py-1 rounded-md text-center" href={`/`}>
               Back
             </Link>
             <EmployeeCard employee={employee} />
             <Link
-              className="border px-2 py-1 rounded-md"
+              className="border px-2 py-1 rounded-md text-center"
               href={`/employee/${employee.id}/edit`}
             >
               Edit

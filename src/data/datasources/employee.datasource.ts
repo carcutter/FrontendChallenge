@@ -66,10 +66,24 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
     }
   }
 
-  public async updateEmployeeById(
-    params: unknown,
-  ): Promise<EmployeeModel | undefined> {
-    throw new Error("Method not implemented.");
+  public async updateEmployeeById(params: Partial<EmployeeModel>): Promise<EmployeeModel | undefined> {
+    try {
+      const response = await fetch(`/api/v1/update/${params.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(params),
+      });
+
+      if (response.status !== 200)
+        return undefined;
+
+      const json = await response.json();
+      const data = json["data"];
+
+      return EmployeeSchema.parse(data);
+    } catch (exception) {
+      return undefined;
+    }
   }
 
   public async deleteEmployeeById(params: GetEmployeeByIdParams): Promise<string | undefined> {
@@ -87,5 +101,6 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
       return json.status;
     } catch (exception) {
       return undefined;
+    }
   }
 }

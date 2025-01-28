@@ -10,5 +10,7 @@ export const useGetEmployeeById = (param: GetEmployeeByIdParams) => {
     queryKey: ["getEmployeeById"],
     queryFn: () => service.getEmployeeById(param),
     staleTime: 5 * 60 * 1000,
+    retryDelay: 30 * 1000,
+    retry: 3
   });
 };

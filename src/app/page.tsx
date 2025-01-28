@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <main className="flex h-screen flex-col items-start justify-start p-4 gap-4">
       <h1>Employee List {data && <span>({data.length})</span>}</h1>
-      <Link className="border px-2 py-1 rounded-md" href={`/employee/create`}>
+      <Link className="border px-2 py-1 rounded-md text-center" href={`/employee/create`}>
         Create
       </Link>
       {data && (
