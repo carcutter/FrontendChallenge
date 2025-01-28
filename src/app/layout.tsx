@@ -6,7 +6,16 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000,
+      retryDelay: 30 * 1000
+    }
+  }
+});
 
 export default function RootLayout({
   children,

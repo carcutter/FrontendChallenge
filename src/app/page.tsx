@@ -1,11 +1,20 @@
 "use client";
 
+import Link from "next/link";
+import { useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+
 import { useGetEmployeeList } from "@/domain/hooks/useGetEmployeeList.hook";
 import EmployeeCard from "@/ui/components/EmployeeCard.component";
-import Link from "next/link";
 
 export default function Home() {
   const { data, isLoading, isError } = useGetEmployeeList();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error('Error while fetching employees data')
+    }
+  }, [isError, isLoading]);
 
   return (
     <main className="flex h-screen flex-col items-start justify-start p-4 gap-4">
@@ -14,7 +23,7 @@ export default function Home() {
         Create
       </Link>
       {data && (
-        <ol className="flex flex-col gap-2">
+        <ol className="flex flex-row flex-wrap justify-start gap-2">
           {data?.map((employee, index) => (
             <li key={index}>
               <Link href={`/employee/${employee.id}`}>
@@ -30,11 +39,7 @@ export default function Home() {
           <span>loading</span>
         </div>
       )}
-      {!data && !isLoading && isError && (
-        <div className="flex-1 w-full items-center justify-center">
-          <span>error</span>
-        </div>
-      )}
+      <ToastContainer theme='dark' position='top-center' />
     </main>
   );
 }

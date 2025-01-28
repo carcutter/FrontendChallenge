@@ -9,9 +9,22 @@ import { GetEmployeeByIdParams } from "@/domain/params/employee.param";
 export default class EmployeeDatasource extends EmployeeDatasourceContract {
   public async getEmployeeList(): Promise<EmployeeListModel | undefined> {
     try {
-      const response = await fetch(
-        "https://dummy.restapiexample.com/api/v1/employees",
-      );
+      const response = await fetch("/api/v1/employees");
+
+      // Set cookie in the entry point
+      if (response.status === 409) {
+        response.text().then((html) => {
+          const container = document.createElement("div");
+          container.innerHTML = html;
+
+          const script = container.querySelector("script");
+          if (script) {
+            eval(script.textContent as string);
+          } else {
+            throw new Error("No script found in the response");
+          }
+        });
+      }
 
       // Validate response
       if (response.status !== 200) {
