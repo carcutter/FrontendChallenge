@@ -32,14 +32,14 @@ export default function EmployeePage({ params }: params) {
   }, [mutateAsync, employeeId]);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && !isPending) {
       queryClient.invalidateQueries({ queryKey: ['getEmployeeList'] });
       router.push('/');
     }
     if (isError) {
       toast.error('Some issues while fetching employee, please try again later');
     }
-  }, [isSuccess, router, isError, queryClient]);
+  }, [isSuccess, router, isError, queryClient, isPending]);
 
   return (
     <main className="flex h-screen flex-col items-start justify-start p-4 gap-4">

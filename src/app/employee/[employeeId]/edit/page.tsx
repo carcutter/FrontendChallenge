@@ -30,13 +30,13 @@ export default function EditEmployeePage({ params }: params) {
   }, [employee, isError]);
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-
     if (!formData) return;
+
+    e.preventDefault();
 
     mutateAsync(formData)
       .then(response => {
-        if (response?.id) {
+        if (response) {
           return toast.success(`Employee data for ${employeeId} has been updated!`)
         }
         return toast.error(`Error! Employee data for ${employeeId} can not be update, please try again later.`)
