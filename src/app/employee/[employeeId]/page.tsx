@@ -19,7 +19,7 @@ export default function EmployeePage({
     data: employee,
     isLoading,
     isError,
-  } = useGetEmployeeById(parsedEmployeeId);
+  } = useGetEmployeeById({ id: parsedEmployeeId });
 
   if (isLoading) {
     return <div>Loading...</div>;

@@ -6,7 +6,10 @@ import {
   EmployeeSchema,
 } from "@/domain/models/employee.model";
 import { getResponseSchema } from "@/domain/models/response.model";
-import { GetEmployeeByIdParams } from "@/domain/params/employee.param";
+import {
+  CreateEmployeeParams,
+  GetEmployeeByIdParams,
+} from "@/domain/params/employee.param";
 
 export default class EmployeeDatasource extends EmployeeDatasourceContract {
   // public baseUrl = "https://dummy.restapiexample.com/api/v1/employees";
@@ -25,9 +28,24 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
   }
 
   public async createEmployee(
-    params: unknown,
-  ): Promise<EmployeeModel | undefined> {
-    throw new Error("Method not implemented.");
+    params: CreateEmployeeParams
+  ): Promise<EmployeeModel> {
+    console.log(params);
+    const response = await fetch(`${this.baseUrl}/employees`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    });
+
+    if (response.status !== 201) {
+      throw new Error("Failed");
+    }
+
+    const json = await response.json();
+
+    return getResponseSchema(EmployeeSchema).parse(json).data;
   }
 
   public async getEmployeeById(
