@@ -14,7 +14,7 @@ export default class EmployeeService {
 
   private constructor(
     private datasource: EmployeeDatasourceContract = new EmployeeDatasource(),
-  ) {}
+  ) { }
 
   public getEmployeeList(): Promise<EmployeeListModel | undefined> {
     return this.datasource.getEmployeeList();
@@ -32,9 +32,7 @@ export default class EmployeeService {
   ): Promise<EmployeeModel | undefined> {
     return this.datasource.updateEmployeeById(params);
   }
-  public deleteEmployeeById(
-    params: unknown,
-  ): Promise<EmployeeModel | undefined> {
+  public deleteEmployeeById(params: GetEmployeeByIdParams): Promise<string | undefined> {
     return this.datasource.deleteEmployeeById(params);
   }
 }

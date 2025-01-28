@@ -72,9 +72,20 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
     throw new Error("Method not implemented.");
   }
 
-  public deleteEmployeeById(
-    params: unknown,
-  ): Promise<EmployeeModel | undefined> {
-    throw new Error("Method not implemented.");
+  public async deleteEmployeeById(params: GetEmployeeByIdParams): Promise<string | undefined> {
+    try {
+      const response = await fetch(`/api/v1/delete/${params.id}`, {
+        method: 'DELETE'
+      });
+
+      if (response.status !== 200) {
+        return undefined;
+      }
+
+      const json = await response.json();
+
+      return json.status;
+    } catch (exception) {
+      return undefined;
   }
 }
