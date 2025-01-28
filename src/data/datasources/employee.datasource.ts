@@ -3,6 +3,7 @@ import {
   EmployeeListModel,
   EmployeeListSchema,
   EmployeeModel,
+  EmployeeSchema,
 } from "@/domain/models/employee.model";
 import { GetEmployeeByIdParams } from "@/domain/params/employee.param";
 
@@ -48,10 +49,21 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
     throw new Error("Method not implemented.");
   }
 
-  public async getEmployeeById(
-    params: GetEmployeeByIdParams,
-  ): Promise<EmployeeModel | undefined> {
-    throw new Error("Method not implemented.");
+  public async getEmployeeById(params: GetEmployeeByIdParams): Promise<EmployeeModel | undefined> {
+    try {
+      const response = await fetch(`/api/v1/employee/${params.id}`);
+
+      if (response.status !== 200) {
+        return undefined;
+      }
+
+      const json = await response.json();
+      const data = json["data"];
+
+      return EmployeeSchema.parse(data);
+    } catch (exception) {
+      return undefined;
+    }
   }
 
   public async updateEmployeeById(
