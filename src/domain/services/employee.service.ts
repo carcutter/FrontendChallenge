@@ -19,12 +19,10 @@ export default class EmployeeService {
   public getEmployeeList(): Promise<EmployeeListModel | undefined> {
     return this.datasource.getEmployeeList();
   }
-  public createEmployee(params: unknown): Promise<EmployeeModel | undefined> {
+  public createEmployee(params: Partial<EmployeeModel>): Promise<EmployeeModel | undefined> {
     return this.datasource.createEmployee(params);
   }
-  public getEmployeeById(
-    params: GetEmployeeByIdParams,
-  ): Promise<EmployeeModel | undefined> {
+  public getEmployeeById(params: GetEmployeeByIdParams): Promise<EmployeeModel | undefined> {
     return this.datasource.getEmployeeById(params);
   }
   public updateEmployeeById(params: Partial<EmployeeModel>): Promise<EmployeeModel | undefined> {

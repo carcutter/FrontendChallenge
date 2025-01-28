@@ -5,12 +5,8 @@ import {
 
 export default abstract class EmployeeDatasourceContract {
   public abstract getEmployeeList(): Promise<EmployeeListModel | undefined>;
-  public abstract createEmployee(
-    params: unknown,
-  ): Promise<EmployeeModel | undefined>;
-  public abstract getEmployeeById(
-    params: GetEmployeeByIdParams,
-  ): Promise<EmployeeModel | undefined>;
+  public abstract createEmployee(params: Partial<EmployeeModel>): Promise<EmployeeModel | undefined>;
+  public abstract getEmployeeById(params: GetEmployeeByIdParams): Promise<EmployeeModel | undefined>;
   public abstract updateEmployeeById(params: Partial<EmployeeModel>): Promise<EmployeeModel | undefined>;
   public abstract deleteEmployeeById(params: GetEmployeeByIdParams): Promise<string | undefined>;
 }

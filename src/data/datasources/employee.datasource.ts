@@ -43,10 +43,21 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
     }
   }
 
-  public async createEmployee(
-    params: unknown,
-  ): Promise<EmployeeModel | undefined> {
-    throw new Error("Method not implemented.");
+  public async createEmployee(params: Partial<EmployeeModel>): Promise<EmployeeModel | undefined> {
+    const response = await fetch(`/api/v1/create`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(params),
+    });
+
+    if (response.status !== 200) {
+      return undefined;
+    }
+
+    const json = await response.json();
+    const data = json["data"];
+
+    return EmployeeSchema.parse(data);
   }
 
   public async getEmployeeById(params: GetEmployeeByIdParams): Promise<EmployeeModel | undefined> {
