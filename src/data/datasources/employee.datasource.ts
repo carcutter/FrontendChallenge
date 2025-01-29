@@ -30,7 +30,6 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
   public async createEmployee(
     params: CreateEmployeeParams
   ): Promise<EmployeeModel> {
-    console.log(params);
     const response = await fetch(`${this.baseUrl}/employees`, {
       method: "PUT",
       headers: {

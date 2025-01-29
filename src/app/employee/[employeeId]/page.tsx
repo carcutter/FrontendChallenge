@@ -1,6 +1,13 @@
 "use client";
 
 import { useGetEmployeeById } from "@/domain/hooks/useGetEmployeeById.hook";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/ui/components/breadcrumb";
 import EmployeeCard from "@/ui/components/EmployeeCard.component";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -30,15 +37,34 @@ export default function EmployeePage({
   }
 
   return (
-    <main className="flex h-screen flex-col items-start justify-start p-4 gap-4">
-      <h1>Employee Details</h1>
-      <EmployeeCard employee={employee} />
-      <Link
-        className="border px-2 py-1 rounded-md"
-        href={`/employee/${employee.id}/edit`}
-      >
-        Edit
-      </Link>
-    </main>
+    <>
+      <header>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>Employees</BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/employee/${employee.id}`}>
+                {employee.id}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </header>
+      <main className="flex h-screen flex-col items-start justify-start p-4 gap-4">
+        <h1>Employee Details</h1>
+        <EmployeeCard employee={employee} />
+        <Link
+          className="border px-2 py-1 rounded-md"
+          href={`/employee/${employee.id}/edit`}
+        >
+          Edit
+        </Link>
+      </main>
+    </>
   );
 }
