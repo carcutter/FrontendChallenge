@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { EmployeeIdModel } from "../models/employee.model";
 import EmployeeService from "../services/employee.service";
 
@@ -11,6 +12,12 @@ export const useDeleteEmployee = (
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: () => service.deleteEmployeeById(id),
-    onSuccess,
+    onSuccess: () => {
+      toast.success(`Employee deleted!`);
+      if (onSuccess) onSuccess();
+    },
+    onError: () => {
+      toast.error("Failed deleting employee");
+    },
   });
 };
