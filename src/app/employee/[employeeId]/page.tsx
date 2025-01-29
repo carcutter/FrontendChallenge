@@ -10,6 +10,7 @@ import {
 } from "@/ui/components/breadcrumb";
 import DeleteEmployee from "@/ui/components/DeleteEmployee.component";
 import EmployeeCard from "@/ui/components/EmployeeCard.component";
+import { Pencil } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -61,7 +62,7 @@ export default function EmployeePage({
           className="border px-2 py-1 rounded-md"
           href={`/employee/${employee.id}/edit`}
         >
-          Edit
+          <Pencil />
         </Link>
         <DeleteEmployee id={employee.id} />
       </main>

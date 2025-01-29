@@ -1,8 +1,18 @@
 "use client";
 
+import EmployeeFormatter from "@/core/formatters/employee.formatter";
 import { useGetEmployeeList } from "@/domain/hooks/useGetEmployeeList.hook";
 import { Button } from "@/ui/components/button";
-import EmployeeCard from "@/ui/components/EmployeeCard.component";
+import DeleteEmployee from "@/ui/components/DeleteEmployee.component";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/ui/components/table";
+import { Pencil } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -16,17 +26,38 @@ export default function Home() {
       <Link href={`/employee/create`}>
         <Button variant="outline">Create</Button>
       </Link>
-      {data && (
-        <ol className="flex flex-col gap-2">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="">Name (Id)</TableHead>
+            <TableHead>Salary</TableHead>
+            <TableHead></TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {data?.map((employee, index) => (
-            <li key={index}>
-              <Link href={`/employee/${employee.id}`}>
-                <EmployeeCard employee={employee} />
-              </Link>
-            </li>
+            <TableRow key={employee.id}>
+              <TableCell className="underline">
+                <Link href={`/employee/${employee.id}`}>
+                  {employee.employee_name} ({employee.id})
+                </Link>
+              </TableCell>
+              <TableCell>
+                {EmployeeFormatter.formatSalary(employee.employee_salary)}
+              </TableCell>
+              <TableCell className="flex gap-2">
+                <Link href={`/employee/${employee.id}/edit`}>
+                  <Button variant="outline">
+                    <Pencil />
+                  </Button>
+                </Link>
+                <DeleteEmployee id={employee.id} />
+              </TableCell>
+            </TableRow>
           ))}
-        </ol>
-      )}
+        </TableBody>
+      </Table>
+      {data && <ol className="flex flex-col gap-2"></ol>}
 
       {isLoading && (
         <div className="flex-1 w-full items-center justify-center">

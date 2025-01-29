@@ -1,5 +1,6 @@
 import { useDeleteEmployee } from "@/domain/hooks/useDeleteEmployee.hook";
 import { EmployeeIdModel } from "@/domain/models/employee.model";
+import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import { Button } from "./button";
@@ -25,7 +26,7 @@ const DeleteEmployee = ({ id }: DeleteEmployeeProps): ReactNode => {
   return (
     <>
       <Button disabled={isPending} onClick={onClick}>
-        Delete
+        <Trash />
       </Button>
       {isError ? <span>Error</span> : null}
     </>
