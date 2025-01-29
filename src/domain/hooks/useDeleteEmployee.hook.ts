@@ -14,6 +14,7 @@ export const useDeleteEmployee = (
     mutationFn: () => service.deleteEmployeeById(id),
     onSuccess: () => {
       toast.success(`Employee deleted!`);
+      queryClient.invalidateQueries({ queryKey: ["getEmployeeList"] });
       if (onSuccess) onSuccess();
     },
     onError: () => {
