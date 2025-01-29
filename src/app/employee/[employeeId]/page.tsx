@@ -8,6 +8,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/ui/components/breadcrumb";
+import DeleteEmployee from "@/ui/components/DeleteEmployee.component";
 import EmployeeCard from "@/ui/components/EmployeeCard.component";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -62,6 +63,7 @@ export default function EmployeePage({
         >
           Edit
         </Link>
+        <DeleteEmployee id={employee.id} />
       </main>
     </>
   );

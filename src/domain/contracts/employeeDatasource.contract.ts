@@ -21,5 +21,5 @@ export default abstract class EmployeeDatasourceContract {
     id: EmployeeIdModel,
     params: UpdateEmployeeParams
   ): Promise<EmployeeModel>;
-  public abstract deleteEmployeeById(params: unknown): Promise<EmployeeModel>;
+  public abstract deleteEmployeeById(id: EmployeeIdModel): Promise<void>;
 }

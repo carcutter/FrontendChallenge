@@ -84,9 +84,13 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
     return getResponseSchema(EmployeeSchema).parse(json).data;
   }
 
-  public deleteEmployeeById(
-    params: unknown,
-  ): Promise<EmployeeModel | undefined> {
-    throw new Error("Method not implemented.");
+  public async deleteEmployeeById(id: EmployeeIdModel): Promise<void> {
+    const response = await fetch(`${this.baseUrl}/employees/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.status !== 200) {
+      throw new Error("Failed");
+    }
   }
 }

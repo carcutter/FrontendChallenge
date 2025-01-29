@@ -41,9 +41,7 @@ export default class EmployeeService {
   ): Promise<EmployeeModel> {
     return this.datasource.updateEmployeeById(id, params);
   }
-  public deleteEmployeeById(
-    params: unknown
-  ): Promise<EmployeeModel | undefined> {
-    return this.datasource.deleteEmployeeById(params);
+  public deleteEmployeeById(id: EmployeeIdModel): Promise<void> {
+    return this.datasource.deleteEmployeeById(id);
   }
 }
