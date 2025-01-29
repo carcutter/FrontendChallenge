@@ -45,11 +45,9 @@ export default function EmployeePage({
               <BreadcrumbLink href="/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>Employees</BreadcrumbItem>
-            <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink href={`/employee/${employee.id}`}>
-                {employee.id}
+                {employee.employee_name} ({employee.id})
               </BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>

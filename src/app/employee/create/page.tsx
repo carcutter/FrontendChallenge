@@ -57,9 +57,7 @@ export default function CreateEmployeePage({
               <BreadcrumbLink href="/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>Employees</BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>Create</BreadcrumbItem>
+            <BreadcrumbItem>Create Employee</BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </header>

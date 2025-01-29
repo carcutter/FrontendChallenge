@@ -64,15 +64,13 @@ export default function EditEmployeePage({
               <BreadcrumbLink href="/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>Employees</BreadcrumbItem>
-            <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink href={`/employee/${params.employeeId}`}>
-                {params.employeeId}
+                {employee.employee_name} ({employee.id})
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>Edit</BreadcrumbItem>
+            <BreadcrumbItem>Edit Employee</BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </header>
