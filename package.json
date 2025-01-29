@@ -11,7 +11,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"./**/*.{md,ts,tsx,json}\""
+    "format": "prettier --write \"./**/*.{md,ts,tsx,json}\"",
+    "server": "node basic-server.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

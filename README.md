@@ -27,6 +27,12 @@ $ nvm exec 20.9 npm run dev
 
 By default, the app is reachable at `http://127.0.0.1:3000`
 
+To run the backend server
+
+```bash
+$ nvm exec 20.9 npm run server
+```
+
 ### Setup
 
 Currently we are using node `20.9` so we recommend to use `nvm`.
