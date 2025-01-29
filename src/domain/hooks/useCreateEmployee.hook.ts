@@ -4,9 +4,10 @@ import EmployeeService from "../services/employee.service";
 
 const service = EmployeeService.getInstance();
 
-export const useCreateEmployee = () => {
+export const useCreateEmployee = (onSuccess?: () => void) => {
   return useMutation({
     mutationFn: (createEmployeeParams: CreateEmployeeParams) =>
       service.createEmployee(createEmployeeParams),
+    onSuccess,
   });
 };

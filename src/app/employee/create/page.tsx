@@ -12,17 +12,9 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/ui/components/breadcrumb";
-import { Button } from "@/ui/components/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/ui/components/form";
-import { Input } from "@/ui/components/input";
+import EmployeeForm from "@/ui/components/EmployeeForm.components";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 export default function CreateEmployeePage({
@@ -30,19 +22,27 @@ export default function CreateEmployeePage({
 }: {
   params: { employeeId: string };
 }) {
+  const emptyEmployee = {
+    id: 0,
+    employee_name: "",
+    employee_salary: 0,
+  };
+
+  const router = useRouter();
+
   const form = useForm<CreateEmployeeParams>({
     resolver: zodResolver(CreateEmployeeSchema),
-    defaultValues: {
-      employee_name: "",
-      employee_salary: 0,
-    },
+    defaultValues: emptyEmployee,
   });
+
   const {
     mutate: createEmployee,
     isPending,
     isError,
     isSuccess,
-  } = useCreateEmployee();
+  } = useCreateEmployee(() => {
+    router.push(`/`);
+  });
 
   function onSubmit(values: CreateEmployeeParams) {
     createEmployee(values);
@@ -65,46 +65,12 @@ export default function CreateEmployeePage({
       </header>
       <main className="flex h-screen flex-col items-start justify-start p-4">
         <h1 className="text-2xl">Create Employee</h1>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="employee_name"
-              disabled={isPending}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Employee Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Max Mustermann" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="employee_salary"
-              disabled={isPending}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Employee Salary</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="ex. 70000"
-                      {...field}
-                      onChange={(e) => field.onChange(Number(e.target.value))}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" disabled={isPending}>
-              Submit
-            </Button>
-          </form>
-        </Form>
+        <EmployeeForm
+          employee={emptyEmployee}
+          schema={CreateEmployeeSchema}
+          onSubmit={onSubmit}
+          disabled={isPending}
+        />
 
         {isPending ? <span>Pending</span> : null}
         {isSuccess ? <span>Success</span> : null}

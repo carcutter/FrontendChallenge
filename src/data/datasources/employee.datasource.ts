@@ -1,5 +1,6 @@
 import EmployeeDatasourceContract from "@/domain/contracts/employeeDatasource.contract";
 import {
+  EmployeeIdModel,
   EmployeeListModel,
   EmployeeListSchema,
   EmployeeModel,
@@ -9,6 +10,7 @@ import { getResponseSchema } from "@/domain/models/response.model";
 import {
   CreateEmployeeParams,
   GetEmployeeByIdParams,
+  UpdateEmployeeParams,
 } from "@/domain/params/employee.param";
 
 export default class EmployeeDatasource extends EmployeeDatasourceContract {
@@ -62,9 +64,24 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
   }
 
   public async updateEmployeeById(
-    params: unknown,
-  ): Promise<EmployeeModel | undefined> {
-    throw new Error("Method not implemented.");
+    id: EmployeeIdModel,
+    params: UpdateEmployeeParams
+  ): Promise<EmployeeModel> {
+    const response = await fetch(`${this.baseUrl}/employees/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    });
+
+    if (response.status !== 200) {
+      throw new Error("Failed");
+    }
+
+    const json = await response.json();
+
+    return getResponseSchema(EmployeeSchema).parse(json).data;
   }
 
   public deleteEmployeeById(
