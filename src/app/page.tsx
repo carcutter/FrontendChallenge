@@ -4,6 +4,7 @@ import EmployeeFormatter from "@/core/formatters/employee.formatter";
 import { useGetEmployeeList } from "@/domain/hooks/useGetEmployeeList.hook";
 import { Button } from "@/ui/components/button";
 import DeleteEmployee from "@/ui/components/DeleteEmployee.component";
+import { Skeleton } from "@/ui/components/skeleton";
 import {
   Table,
   TableBody,
@@ -32,6 +33,22 @@ export default function Home() {
           </TableRow>
         </TableHeader>
         <TableBody>
+          {isLoading
+            ? [1, 2, 3, 4, 5, 6].map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Skeleton className="rounded-full w-24 h-9" />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className="rounded-full w-24 h-9" />
+                  </TableCell>
+                  <TableCell className="flex gap-2">
+                    <Skeleton className="rounded-full w-12 h-9" />
+                    <Skeleton className="rounded-full w-12 h-9" />
+                  </TableCell>
+                </TableRow>
+              ))
+            : null}
           {data?.map((employee, index) => (
             <TableRow key={employee.id}>
               <TableCell className="underline">
@@ -63,12 +80,6 @@ export default function Home() {
           <Plus />
         </Link>
       </Button>
-
-      {isLoading && (
-        <div className="flex-1 w-full items-center justify-center">
-          <span>loading</span>
-        </div>
-      )}
       {!data && !isLoading && isError && (
         <div className="flex-1 w-full items-center justify-center">
           <span>error</span>

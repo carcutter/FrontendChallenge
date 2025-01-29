@@ -6,7 +6,9 @@ import {
   UpdateEmployeeParams,
   UpdateEmployeeSchema,
 } from "@/domain/params/employee.param";
+import { Card, CardContent, CardFooter } from "@/ui/components/card";
 import EmployeeForm from "@/ui/components/EmployeeForm.components";
+import { Skeleton } from "@/ui/components/skeleton";
 import { notFound, useRouter } from "next/navigation";
 
 export default function EditEmployeePage({
@@ -41,7 +43,17 @@ export default function EditEmployeePage({
   }
 
   if (isGetEmployeeLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Card>
+        <CardContent className="pt-4 flex flex-col gap-4">
+          <Skeleton className="rounded-full w-64 h-6" />
+          <Skeleton className="rounded-full w-64 h-6" />
+        </CardContent>
+        <CardFooter>
+          <Skeleton className="rounded-full w-16 h-9" />
+        </CardFooter>
+      </Card>
+    );
   }
 
   if (employee === undefined || isGetEmployeeError) {

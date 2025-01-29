@@ -8,6 +8,7 @@ import { ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "./button";
+import { Card, CardContent, CardFooter } from "./card";
 import {
   Form,
   FormControl,
@@ -39,45 +40,51 @@ const EmployeeForm = ({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="employee_name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Employee Name</FormLabel>
-              <FormControl>
-                <Input
-                  disabled={disabled}
-                  placeholder="Max Mustermann"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="employee_salary"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Employee Salary</FormLabel>
-              <FormControl>
-                <Input
-                  disabled={disabled}
-                  type="number"
-                  placeholder="ex. 70000"
-                  {...field}
-                  onChange={(e) => field.onChange(Number(e.target.value))}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" disabled={disabled}>
-          Submit
-        </Button>
+        <Card>
+          <CardContent className="pt-4 flex flex-col gap-4">
+            <FormField
+              control={form.control}
+              name="employee_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Employee Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={disabled}
+                      placeholder="Max Mustermann"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="employee_salary"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Employee Salary</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={disabled}
+                      type="number"
+                      placeholder="ex. 70000"
+                      {...field}
+                      onChange={(e) => field.onChange(Number(e.target.value))}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </CardContent>
+          <CardFooter>
+            <Button type="submit" disabled={disabled}>
+              Submit
+            </Button>
+          </CardFooter>
+        </Card>
       </form>
     </Form>
   );
