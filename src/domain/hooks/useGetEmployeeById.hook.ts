@@ -8,7 +8,7 @@ export const useGetEmployeeById = (
   getEmployeeByIdParams: GetEmployeeByIdParams
 ) => {
   return useQuery({
-    queryKey: ["getEmployee"],
+    queryKey: [`getEmployee-${getEmployeeByIdParams.id}`],
     queryFn: () => service.getEmployeeById(getEmployeeByIdParams),
   });
 };

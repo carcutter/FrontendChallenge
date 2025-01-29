@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { EmployeeIdModel } from "../models/employee.model";
 import { UpdateEmployeeParams } from "../params/employee.param";
 import EmployeeService from "../services/employee.service";
@@ -9,9 +9,13 @@ export const useUpdateEmployee = (
   id: EmployeeIdModel,
   onSuccess?: () => void
 ) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (updateEmployeeParams: UpdateEmployeeParams) =>
       service.updateEmployeeById(id, updateEmployeeParams),
-    onSuccess,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [`getEmployee-${id}`] });
+      if (onSuccess) onSuccess();
+    },
   });
 };
