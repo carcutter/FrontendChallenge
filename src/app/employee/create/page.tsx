@@ -5,13 +5,6 @@ import {
   CreateEmployeeParams,
   CreateEmployeeSchema,
 } from "@/domain/params/employee.param";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "@/ui/components/breadcrumb";
 import EmployeeForm from "@/ui/components/EmployeeForm.components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -50,30 +43,16 @@ export default function CreateEmployeePage({
 
   return (
     <>
-      <header>
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>Create Employee</BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </header>
-      <main className="flex h-screen flex-col items-start justify-start p-4">
-        <h1 className="text-2xl">Create Employee</h1>
-        <EmployeeForm
-          employee={emptyEmployee}
-          schema={CreateEmployeeSchema}
-          onSubmit={onSubmit}
-          disabled={isPending}
-        />
+      <EmployeeForm
+        employee={emptyEmployee}
+        schema={CreateEmployeeSchema}
+        onSubmit={onSubmit}
+        disabled={isPending}
+      />
 
-        {isPending ? <span>Pending</span> : null}
-        {isSuccess ? <span>Success</span> : null}
-        {isError ? <span>Error</span> : null}
-      </main>
+      {isPending ? <span>Pending</span> : null}
+      {isSuccess ? <span>Success</span> : null}
+      {isError ? <span>Error</span> : null}
     </>
   );
 }

@@ -6,13 +6,6 @@ import {
   UpdateEmployeeParams,
   UpdateEmployeeSchema,
 } from "@/domain/params/employee.param";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "@/ui/components/breadcrumb";
 import EmployeeForm from "@/ui/components/EmployeeForm.components";
 import { notFound, useRouter } from "next/navigation";
 
@@ -56,34 +49,11 @@ export default function EditEmployeePage({
   }
 
   return (
-    <>
-      <header>
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/employee/${params.employeeId}`}>
-                {employee.employee_name} ({employee.id})
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>Edit Employee</BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </header>
-      <main className="flex h-screen flex-col items-start justify-start p-4">
-        <h1>Edit Employee</h1>
-
-        <EmployeeForm
-          employee={employee}
-          schema={UpdateEmployeeSchema}
-          onSubmit={onSubmit}
-          disabled={isPending}
-        />
-      </main>
-    </>
+    <EmployeeForm
+      employee={employee}
+      schema={UpdateEmployeeSchema}
+      onSubmit={onSubmit}
+      disabled={isPending}
+    />
   );
 }

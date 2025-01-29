@@ -12,20 +12,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/ui/components/table";
-import { Pencil } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
   const { data, isLoading, isError } = useGetEmployeeList();
 
   return (
-    <main className="flex h-screen flex-col items-start justify-start p-4 gap-4">
-      <h1 className="text-2xl">
+    <>
+      <h1 className="text-2xl pb-4">
         Employee List {data && <span>({data.length})</span>}
       </h1>
-      <Link href={`/employee/create`}>
-        <Button variant="outline">Create</Button>
-      </Link>
       <Table>
         <TableHeader>
           <TableRow>
@@ -57,7 +54,15 @@ export default function Home() {
           ))}
         </TableBody>
       </Table>
-      {data && <ol className="flex flex-col gap-2"></ol>}
+
+      <Button size="icon" variant="ghost">
+        <Link
+          className="absolute bottom-4 right-4 rounded-full bg-primary p-4 text-primary-foreground hover:bg-primary/80 transition-colors"
+          href={`/employee/create`}
+        >
+          <Plus />
+        </Link>
+      </Button>
 
       {isLoading && (
         <div className="flex-1 w-full items-center justify-center">
@@ -69,6 +74,6 @@ export default function Home() {
           <span>error</span>
         </div>
       )}
-    </main>
+    </>
   );
 }

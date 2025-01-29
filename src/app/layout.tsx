@@ -1,5 +1,6 @@
 "use client";
 
+import Navigation from "@/ui/components/Navigation.component";
 import { Toaster } from "@/ui/components/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Inter } from "next/font/google";
@@ -18,7 +19,12 @@ export default function RootLayout({
     <html lang="en">
       <QueryClientProvider client={queryClient}>
         <body className={inter.className}>
-          {children}
+          <header>
+            <Navigation />
+          </header>
+          <main className="flex h-screen flex-col items-start justify-start p-4">
+            {children}
+          </main>
           <Toaster richColors />
         </body>
       </QueryClientProvider>
