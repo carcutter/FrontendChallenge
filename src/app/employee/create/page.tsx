@@ -42,17 +42,11 @@ export default function CreateEmployeePage({
   }
 
   return (
-    <>
-      <EmployeeForm
-        employee={emptyEmployee}
-        schema={CreateEmployeeSchema}
-        onSubmit={onSubmit}
-        disabled={isPending}
-      />
-
-      {isPending ? <span>Pending</span> : null}
-      {isSuccess ? <span>Success</span> : null}
-      {isError ? <span>Error</span> : null}
-    </>
+    <EmployeeForm
+      employee={emptyEmployee}
+      schema={CreateEmployeeSchema}
+      onSubmit={onSubmit}
+      isPending={isPending}
+    />
   );
 }

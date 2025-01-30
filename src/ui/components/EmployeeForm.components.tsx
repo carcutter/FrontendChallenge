@@ -4,6 +4,7 @@ import {
   UpdateEmployeeParams,
 } from "@/domain/params/employee.param";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoaderCircle } from "lucide-react";
 import { ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,14 +24,14 @@ export interface EmployeeFormProps {
   employee: EmployeeModel;
   schema: z.ZodType<UpdateEmployeeParams | CreateEmployeeParams>;
   onSubmit: (values: UpdateEmployeeParams | CreateEmployeeParams) => void;
-  disabled: boolean;
+  isPending: boolean;
 }
 
 const EmployeeForm = ({
   employee,
   schema,
   onSubmit,
-  disabled,
+  isPending,
 }: EmployeeFormProps): ReactNode => {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -50,7 +51,7 @@ const EmployeeForm = ({
                   <FormLabel>Employee Name</FormLabel>
                   <FormControl>
                     <Input
-                      disabled={disabled}
+                      disabled={isPending}
                       placeholder="Max Mustermann"
                       {...field}
                     />
@@ -67,7 +68,7 @@ const EmployeeForm = ({
                   <FormLabel>Employee Salary</FormLabel>
                   <FormControl>
                     <Input
-                      disabled={disabled}
+                      disabled={isPending}
                       type="number"
                       placeholder="ex. 70000"
                       {...field}
@@ -80,11 +81,16 @@ const EmployeeForm = ({
             />
           </CardContent>
           <CardFooter>
-            <Button type="submit" disabled={disabled}>
+            <Button type="submit" disabled={isPending}>
               Submit
             </Button>
           </CardFooter>
         </Card>
+        {isPending ? (
+          <span className="flex gap-2 pt-4">
+            <LoaderCircle className="animate-spin" /> Loading
+          </span>
+        ) : null}
       </form>
     </Form>
   );

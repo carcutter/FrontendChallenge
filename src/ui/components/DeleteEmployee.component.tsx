@@ -25,16 +25,9 @@ const DeleteEmployee = ({ id, fullWidth }: DeleteEmployeeProps): ReactNode => {
   }
 
   return (
-    <>
-      <Button
-        disabled={isPending}
-        onClick={onClick}
-        className="w-fit flex gap-2"
-      >
-        <Trash /> {fullWidth ? "Delete Employee" : null}
-      </Button>
-      {isError ? <span>Error</span> : null}
-    </>
+    <Button disabled={isPending} onClick={onClick} className="w-fit flex gap-2">
+      <Trash /> {fullWidth ? "Delete Employee" : null}
+    </Button>
   );
 };
 export default DeleteEmployee;

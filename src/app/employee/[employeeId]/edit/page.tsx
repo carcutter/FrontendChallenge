@@ -65,7 +65,7 @@ export default function EditEmployeePage({
       employee={employee}
       schema={UpdateEmployeeSchema}
       onSubmit={onSubmit}
-      disabled={isPending}
+      isPending={isPending}
     />
   );
 }
