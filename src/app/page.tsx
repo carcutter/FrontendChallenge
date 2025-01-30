@@ -2,7 +2,8 @@
 
 import EmployeeFormatter from "@/core/formatters/employee.formatter";
 import { useGetEmployeeList } from "@/domain/hooks/useGetEmployeeList.hook";
-import { Button } from "@/ui/components/button";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/ui/components/button";
 import DeleteEmployee from "@/ui/components/DeleteEmployee.component";
 import { Skeleton } from "@/ui/components/skeleton";
 import {
@@ -37,10 +38,10 @@ export default function Home() {
             ? [1, 2, 3, 4, 5, 6].map((_, index) => (
                 <TableRow key={index}>
                   <TableCell>
-                    <Skeleton className="rounded-full w-24 h-9" />
+                    <Skeleton className="rounded-full w-24 h-6" />
                   </TableCell>
                   <TableCell>
-                    <Skeleton className="rounded-full w-24 h-9" />
+                    <Skeleton className="rounded-full w-24 h-6" />
                   </TableCell>
                   <TableCell className="flex gap-2">
                     <Skeleton className="rounded-full w-12 h-9" />
@@ -60,10 +61,11 @@ export default function Home() {
                 {EmployeeFormatter.formatSalary(employee.employee_salary)}
               </TableCell>
               <TableCell className="flex gap-2">
-                <Link href={`/employee/${employee.id}/edit`}>
-                  <Button variant="outline">
-                    <Pencil />
-                  </Button>
+                <Link
+                  className={cn(buttonVariants({ variant: "outline" }))}
+                  href={`/employee/${employee.id}/edit`}
+                >
+                  <Pencil />
                 </Link>
                 <DeleteEmployee id={employee.id} />
               </TableCell>
@@ -72,17 +74,19 @@ export default function Home() {
         </TableBody>
       </Table>
 
-      <Button className="absolute bottom-6 right-6" size="icon" variant="ghost">
-        <Link
-          className="rounded-full bg-primary p-4 text-primary-foreground hover:bg-primary/80 transition-colors"
-          href={`/employee/create`}
-        >
-          <Plus />
-        </Link>
-      </Button>
-      {!data && !isLoading && isError && (
+      <Link
+        className={cn(
+          buttonVariants({ variant: "ghost", size: "icon" }),
+          "absolute bottom-6 right-6 rounded-full bg-primary p-6 text-primary-foreground hover:bg-primary/80 hover:text-white hover:scale-105 transition-all"
+        )}
+        href={`/employee/create`}
+      >
+        <Plus />
+      </Link>
+      {/* This should probably be an alert */}
+      {isError && (
         <div className="flex-1 w-full items-center justify-center">
-          <span>error</span>
+          <span>Error while loading employees</span>
         </div>
       )}
     </>
