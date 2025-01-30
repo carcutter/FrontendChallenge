@@ -61,7 +61,7 @@ export default function Home() {
               <TableCell>
                 {EmployeeFormatter.formatSalary(employee.employee_salary)}
               </TableCell>
-              <TableCell className="flex gap-2">
+              <TableCell className="flex gap-2 justify-end">
                 <Link
                   className={cn(buttonVariants({ variant: "outline" }))}
                   href={`/employee/${employee.id}/edit`}

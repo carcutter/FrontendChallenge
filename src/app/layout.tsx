@@ -19,13 +19,13 @@ export default function RootLayout({
     <html lang="en">
       <QueryClientProvider client={queryClient}>
         <body className={inter.className}>
-          <header>
+          <header className="w-full">
             <Navigation />
           </header>
-          <main className="flex h-screen flex-col items-start justify-start p-4">
+          <main className="w-full flex h-screen flex-col items-start justify-start p-4">
             {children}
           </main>
-          <Toaster richColors />
+          <Toaster richColors position="bottom-left" />
         </body>
       </QueryClientProvider>
     </html>

@@ -49,7 +49,10 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply flex justify-center;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply relative w-full max-w-[1000px] bg-background text-foreground flex flex-col items-center;
   }
 }

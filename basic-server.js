@@ -1,5 +1,5 @@
 // This is a basic server that can be used to test the frontend
-// I did not want to use libraries like express or fastify because I wanted to  run it standalone (no dependencies required)
+// I did not want to use libraries like express or fastify because I wanted to run it standalone (no dependencies required)
 
 const http = require("http");
 
