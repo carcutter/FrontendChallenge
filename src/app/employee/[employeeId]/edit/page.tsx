@@ -17,12 +17,8 @@ export default function EditEmployeePage({
 }: {
   params: { employeeId: string };
 }) {
-  const parsedEmployeeId = Number(params.employeeId);
-  if (isNaN(parsedEmployeeId)) {
-    return notFound();
-  }
-
   const router = useRouter();
+  const parsedEmployeeId = Number(params.employeeId);
 
   const {
     data: employee,
@@ -38,9 +34,12 @@ export default function EditEmployeePage({
   } = useUpdateEmployee(parsedEmployeeId, () => {
     router.push(`/employee/${parsedEmployeeId}`);
   });
-
   function onSubmit(values: UpdateEmployeeParams) {
     updateEmployee(values);
+  }
+
+  if (isNaN(parsedEmployeeId)) {
+    return notFound();
   }
 
   if (isGetEmployeeLoading) {

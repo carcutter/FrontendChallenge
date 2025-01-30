@@ -16,9 +16,6 @@ export default function EmployeePage({
   params: { employeeId: string };
 }) {
   const parsedEmployeeId = Number(params.employeeId);
-  if (isNaN(parsedEmployeeId)) {
-    return notFound();
-  }
 
   const {
     data: employee,
@@ -39,6 +36,10 @@ export default function EmployeePage({
         <Skeleton className="rounded-full w-24 h-9" />
       </div>
     );
+  }
+
+  if (isNaN(parsedEmployeeId)) {
+    return notFound();
   }
 
   if (isError || employee === undefined) {
