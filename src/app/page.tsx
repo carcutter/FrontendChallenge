@@ -72,9 +72,9 @@ export default function Home() {
         </TableBody>
       </Table>
 
-      <Button size="icon" variant="ghost">
+      <Button className="absolute bottom-6 right-6" size="icon" variant="ghost">
         <Link
-          className="absolute bottom-4 right-4 rounded-full bg-primary p-4 text-primary-foreground hover:bg-primary/80 transition-colors"
+          className="rounded-full bg-primary p-4 text-primary-foreground hover:bg-primary/80 transition-colors"
           href={`/employee/create`}
         >
           <Plus />

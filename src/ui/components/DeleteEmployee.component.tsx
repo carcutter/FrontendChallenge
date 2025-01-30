@@ -7,9 +7,10 @@ import { Button } from "./button";
 
 export interface DeleteEmployeeProps {
   id: EmployeeIdModel;
+  fullWidth?: boolean;
 }
 
-const DeleteEmployee = ({ id }: DeleteEmployeeProps): ReactNode => {
+const DeleteEmployee = ({ id, fullWidth }: DeleteEmployeeProps): ReactNode => {
   const router = useRouter();
   const {
     isPending,
@@ -25,8 +26,12 @@ const DeleteEmployee = ({ id }: DeleteEmployeeProps): ReactNode => {
 
   return (
     <>
-      <Button disabled={isPending} onClick={onClick}>
-        <Trash />
+      <Button
+        disabled={isPending}
+        onClick={onClick}
+        className="w-fit flex gap-2"
+      >
+        <Trash /> {fullWidth ? "Delete Employee" : null}
       </Button>
       {isError ? <span>Error</span> : null}
     </>
