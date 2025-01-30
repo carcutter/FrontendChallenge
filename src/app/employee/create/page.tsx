@@ -15,6 +15,7 @@ export default function CreateEmployeePage({
 }: {
   params: { employeeId: string };
 }) {
+  // This should probably be a constant where the data structure is defined
   const emptyEmployee = {
     id: 0,
     employee_name: "",

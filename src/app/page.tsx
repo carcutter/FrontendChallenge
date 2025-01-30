@@ -84,7 +84,7 @@ export default function Home() {
       >
         <Plus />
       </Link>
-      {/* This should probably be an alert */}
+      {/* Or we can use Next Error boundaries (https://nextjs.org/docs/app/building-your-application/routing/error-handling#using-error-boundaries) */}
       {isError && (
         <Alert variant="destructive">Error while loading employees</Alert>
       )}
