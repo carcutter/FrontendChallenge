@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetEmployeeById } from "@/domain/hooks/useGetEmployeeById.hook";
+import { Alert } from "@/ui/components/alert";
 import { Card, CardContent } from "@/ui/components/card";
 import DeleteEmployee from "@/ui/components/DeleteEmployee.component";
 import EmployeeCard from "@/ui/components/EmployeeCard.component";
@@ -40,8 +41,8 @@ export default function EmployeePage({
     );
   }
 
-  if (employee === undefined || isError) {
-    return notFound();
+  if (isError || employee === undefined) {
+    return <Alert variant="destructive">Error while loading employee</Alert>;
   }
 
   return (

@@ -6,6 +6,7 @@ import {
   UpdateEmployeeParams,
   UpdateEmployeeSchema,
 } from "@/domain/params/employee.param";
+import { Alert } from "@/ui/components/alert";
 import { Card, CardContent, CardFooter } from "@/ui/components/card";
 import EmployeeForm from "@/ui/components/EmployeeForm.components";
 import { Skeleton } from "@/ui/components/skeleton";
@@ -57,7 +58,7 @@ export default function EditEmployeePage({
   }
 
   if (employee === undefined || isGetEmployeeError) {
-    return notFound();
+    return <Alert variant="destructive">Error while loading employee</Alert>;
   }
 
   return (

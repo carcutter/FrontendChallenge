@@ -3,6 +3,7 @@
 import EmployeeFormatter from "@/core/formatters/employee.formatter";
 import { useGetEmployeeList } from "@/domain/hooks/useGetEmployeeList.hook";
 import { cn } from "@/lib/utils";
+import { Alert } from "@/ui/components/alert";
 import { buttonVariants } from "@/ui/components/button";
 import DeleteEmployee from "@/ui/components/DeleteEmployee.component";
 import { Skeleton } from "@/ui/components/skeleton";
@@ -85,9 +86,7 @@ export default function Home() {
       </Link>
       {/* This should probably be an alert */}
       {isError && (
-        <div className="flex-1 w-full items-center justify-center">
-          <span>Error while loading employees</span>
-        </div>
+        <Alert variant="destructive">Error while loading employees</Alert>
       )}
     </>
   );
