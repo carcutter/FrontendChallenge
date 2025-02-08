@@ -9,3 +9,10 @@ export const useGetEmployeeList = () => {
     queryFn: () => service.getEmployeeList(),
   });
 };
+
+export const useGetEmployeeById = (id: number) => {
+  return useQuery({
+    queryKey: ["getEmployeeById", { id }],
+    queryFn: () => service.getEmployeeById({ id }),
+  });
+};
