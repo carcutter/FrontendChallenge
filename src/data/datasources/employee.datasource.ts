@@ -32,9 +32,28 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
   }
 
   public async createEmployee(
-    params: unknown,
+    employeeData: Omit<EmployeeModel, "id">, // Ne pas exiger l'ID
   ): Promise<EmployeeModel | undefined> {
-    throw new Error("Method not implemented.");
+    try {
+      const response = await fetch("http://localhost:3001/api/v1/employees", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(employeeData),
+      });
+
+      if (!response.ok) {
+        console.error("Failed to create employee:", response.statusText);
+        return undefined;
+      }
+
+      const json = await response.json();
+      return EmployeeSchema.parse(json); // Validation avec Zod
+    } catch (exception) {
+      console.error("Error creating employee:", exception);
+      return undefined;
+    }
   }
 
     public async getEmployeeById(
