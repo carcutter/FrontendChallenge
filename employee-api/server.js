@@ -14,7 +14,7 @@ let employees = [
   { id: 3, employee_name: 'Tom White', employee_salary: 70000 },
   { id: 4, employee_name: 'Alice Brown', employee_salary: 80000 },
   { id: 5, employee_name: 'Bob Green', employee_salary: 90000 },
-    
+
 ];
 
 // Get all employees
@@ -41,14 +41,22 @@ app.post('/api/v1/employees', (req, res) => {
 });
 
 // Update an employee by ID
+// Update an employee by ID
 app.put('/api/v1/employees/:id', (req, res) => {
   const employee = employees.find(emp => emp.id === parseInt(req.params.id));
   if (!employee) return res.status(404).send('Employee not found');
 
-  employee.name = req.body.name;
-  employee.salary = req.body.salary;
+  // Mise à jour des bonnes propriétés
+  if (req.body.employee_name) {
+    employee.employee_name = req.body.employee_name;
+  }
+  if (req.body.employee_salary) {
+    employee.employee_salary = req.body.employee_salary;
+  }
+
   res.json(employee);
 });
+
 
 // Delete an employee by ID
 app.delete('/api/v1/employees/:id', (req, res) => {

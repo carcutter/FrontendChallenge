@@ -13,7 +13,7 @@ export const useGetEmployeeList = () => {
 
 export const useGetEmployeeById = (id: number) => {
   return useQuery({
-    queryKey: ["getEmployeeById", { id }],
+    queryKey: ["getEmployeeById", id],
     queryFn: () => service.getEmployeeById({ id }),
   });
 };
@@ -26,6 +26,19 @@ export const useCreateEmployee = () => {
       service.createEmployee(newEmployee),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["getEmployeeList"] }); // Rafraîchit la liste après création
+    },
+  });
+};
+
+export const useUpdateEmployee = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (updatedEmployee: { id: number; data: Partial<EmployeeModel> }) =>
+      service.updateEmployeeById(updatedEmployee),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["getEmployeeList"] }); // Rafraîchit la liste globale
+      queryClient.invalidateQueries({ queryKey: ["getEmployeeById", variables.id] }); // Rafraîchit les détails de l’employé
     },
   });
 };

@@ -8,34 +8,27 @@ import {
 import { GetEmployeeByIdParams } from "@/domain/params/employee.param";
 
 export default class EmployeeDatasource extends EmployeeDatasourceContract {
+  private BASE_URL = "http://localhost:3001/api/v1/employees"; // URL de base de l'API
+
   public async getEmployeeList(): Promise<EmployeeListModel | undefined> {
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/v1/employees",
-      );
+      const response = await fetch(this.BASE_URL);
 
-      // Validate response
-      if (response.status !== 200) {
-        return undefined;
-      }
+      if (!response.ok) return undefined;
 
-      // Obtain json from response
       const json = await response.json();
-      // Extract data
-      const data = json;
-
-      return EmployeeListSchema.parse(data);
+      return EmployeeListSchema.parse(json);
     } catch (exception) {
-      console.error(exception);
+      console.error("Error fetching employee list:", exception);
       return undefined;
     }
   }
 
   public async createEmployee(
-    employeeData: Omit<EmployeeModel, "id">, // Ne pas exiger l'ID
+    employeeData: Omit<EmployeeModel, "id">,
   ): Promise<EmployeeModel | undefined> {
     try {
-      const response = await fetch("http://localhost:3001/api/v1/employees", {
+      const response = await fetch(this.BASE_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,47 +42,74 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
       }
 
       const json = await response.json();
-      return EmployeeSchema.parse(json); // Validation avec Zod
+      return EmployeeSchema.parse(json);
     } catch (exception) {
       console.error("Error creating employee:", exception);
       return undefined;
     }
   }
 
-    public async getEmployeeById(
-  params: GetEmployeeByIdParams,
+  public async getEmployeeById(
+    params: GetEmployeeByIdParams,
   ): Promise<EmployeeModel | undefined> {
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/v1/employees/${params.id}`,
-      );
+      const response = await fetch(`${this.BASE_URL}/${params.id}`);
 
-      // Validate response
-      if (response.status !== 200) {
-        return undefined;
-      }
+      if (!response.ok) return undefined;
 
-      // Obtain json from response
       const json = await response.json();
-      // Extract data
-      const data = json;
-
-      return EmployeeSchema.parse(data); // Utilisation du schéma pour la validation
+      return EmployeeSchema.parse(json);
     } catch (exception) {
-      console.error(exception);
+      console.error(`Error fetching employee ID ${params.id}:`, exception);
       return undefined;
     }
   }
 
   public async updateEmployeeById(
-    params: unknown,
+    params: { id: number; data: Partial<EmployeeModel> },
   ): Promise<EmployeeModel | undefined> {
-    throw new Error("Method not implemented.");
+    try {
+      const response = await fetch(`${this.BASE_URL}/${params.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params.data),
+      });
+
+      if (!response.ok) {
+        console.error(`Failed to update employee ${params.id}:`, response.statusText);
+        return undefined;
+      }
+
+      const json = await response.json();
+      return EmployeeSchema.parse(json);
+    } catch (exception) {
+      console.error(`Error updating employee ID ${params.id}:`, exception);
+      return undefined;
+    }
   }
 
-  public deleteEmployeeById(
-    params: unknown,
-  ): Promise<EmployeeModel | undefined> {
-    throw new Error("Method not implemented.");
-  }
+  public async deleteEmployeeById(
+    params: { id: number },
+    ): Promise<EmployeeModel | undefined> {
+      try {
+        const response = await fetch(`${this.BASE_URL}/${params.id}`, {
+          method: "DELETE",
+        });
+
+        if (!response.ok) {
+          console.error(`Failed to delete employee ${params.id}:`, response.statusText);
+          return undefined;
+        }
+
+        // Vérifier si l'API retourne l'employé supprimé
+        const json = await response.json();
+        return EmployeeSchema.parse(json);
+      } catch (exception) {
+        console.error(`Error deleting employee ID ${params.id}:`, exception);
+        return undefined;
+      }
+    }
+
 }
