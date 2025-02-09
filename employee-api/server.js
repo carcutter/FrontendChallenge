@@ -41,7 +41,6 @@ app.post('/api/v1/employees', (req, res) => {
 });
 
 // Update an employee by ID
-// Update an employee by ID
 app.put('/api/v1/employees/:id', (req, res) => {
   const employee = employees.find(emp => emp.id === parseInt(req.params.id));
   if (!employee) return res.status(404).send('Employee not found');

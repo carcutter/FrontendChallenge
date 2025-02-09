@@ -43,6 +43,14 @@ export default function EditEmployeePage() {
 
   return (
     <main className="flex h-screen flex-col items-start justify-start p-4 gap-4">
+      {/* Back Button */}
+      <button
+        onClick={() => router.back()}
+        className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
+      >
+        ← Back
+      </button>
+
       <h1 className="text-2xl font-bold">Edit Employee</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-md">
