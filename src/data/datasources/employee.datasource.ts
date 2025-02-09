@@ -105,7 +105,7 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
 
         // Vérifier si l'API retourne l'employé supprimé
         const json = await response.json();
-        return EmployeeSchema.parse(json);
+        return EmployeeSchema.parse(json[0]);
       } catch (exception) {
         console.error(`Error deleting employee ID ${params.id}:`, exception);
         return undefined;

@@ -42,3 +42,14 @@ export const useUpdateEmployee = () => {
     },
   });
 };
+
+export const useDeleteEmployee = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: number) => service.deleteEmployeeById({ id }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["getEmployeeList"] }); // Met à jour la liste après suppression
+    },
+  });
+};
