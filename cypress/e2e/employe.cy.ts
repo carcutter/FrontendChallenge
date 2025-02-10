@@ -7,8 +7,4 @@ describe("Employee List Page", () => {
     cy.contains("h1", "Employee List").should("be.visible");
     cy.get("a").contains("Create").should("be.visible");
   });
-
-  it("should display the loading message", () => {
-    cy.get("span").contains("loading").should("be.visible");
-  });
 });

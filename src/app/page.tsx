@@ -3,16 +3,26 @@
 import { useGetEmployeeList } from "@/domain/hooks/useEmployee.hook";
 import EmployeeCard from "@/ui/components/EmployeeCard.component";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
-  const { data, isLoading, isError } = useGetEmployeeList();
+  const [page, setPage] = useState(1);
+  const limit = 5; // Nombre d'employés par page
+
+  const { data, isLoading, isError } = useGetEmployeeList(page, limit);
+
+  const handleLoadMore = () => {
+    setPage(prevPage => prevPage + 1);
+  };
 
   return (
     <main className="flex h-screen flex-col items-start justify-start p-4 gap-4">
       <h1>Employee List {data && <span>({data.length})</span>}</h1>
+      
       <Link className="border px-2 py-1 rounded-md" href={`/employee/create`}>
         Create
       </Link>
+      
       {data && (
         <ol className="flex flex-col gap-2">
           {data?.map((employee, index) => (
@@ -27,13 +37,24 @@ export default function Home() {
 
       {isLoading && (
         <div className="flex-1 w-full items-center justify-center">
-          <span>loading</span>
+          <span>Loading...</span>
         </div>
       )}
+
       {!data && !isLoading && isError && (
         <div className="flex-1 w-full items-center justify-center">
-          <span>error</span>
+          <span>Error loading employees</span>
         </div>
+      )}
+
+      {/* Bouton More pour charger plus d'employés */}
+      {data && data.length > 0 && (
+        <button
+          onClick={handleLoadMore}
+          className="border px-4 py-2 rounded-md bg-blue-500 text-white"
+        >
+          More
+        </button>
       )}
     </main>
   );

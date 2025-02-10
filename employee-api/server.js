@@ -14,12 +14,36 @@ let employees = [
   { id: 3, employee_name: 'Tom White', employee_salary: 70000 },
   { id: 4, employee_name: 'Alice Brown', employee_salary: 80000 },
   { id: 5, employee_name: 'Bob Green', employee_salary: 90000 },
-
+  { id: 6, employee_name: 'Charlie Black', employee_salary: 100000 },
+  { id: 7, employee_name: 'David Lee', employee_salary: 110000 },
+  { id: 8, employee_name: 'Eve King', employee_salary: 120000 },
+  { id: 9, employee_name: 'Frank Knight', employee_salary: 130000 },
+  { id: 10, employee_name: 'Grace Hill', employee_salary: 140000 },
+  { id: 11, employee_name: 'Henry Ford', employee_salary: 150000 },
+  { id: 12, employee_name: 'Ivy Hall', employee_salary: 160000 },
+  { id: 13, employee_name: 'Jack Cook', employee_salary: 170000 },
+  { id: 14, employee_name: 'Kelly Bell', employee_salary: 180000 },
+  { id: 15, employee_name: 'Larry Cox', employee_salary: 190000 },
 ];
 
-// Get all employees
+// Get all employees with pagination
 app.get('/api/v1/employees', (req, res) => {
-  res.json(employees);
+  let { page = 1, limit = 5 } = req.query;
+  page = parseInt(page);
+  limit = parseInt(limit);
+
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+
+  const paginatedEmployees = employees.slice(startIndex, endIndex);
+
+  res.json({
+    page,
+    limit,
+    total: employees.length,
+    totalPages: Math.ceil(employees.length / limit),
+    data: paginatedEmployees,
+  });
 });
 
 // Get employee by ID
@@ -45,7 +69,6 @@ app.put('/api/v1/employees/:id', (req, res) => {
   const employee = employees.find(emp => emp.id === parseInt(req.params.id));
   if (!employee) return res.status(404).send('Employee not found');
 
-  // Mise à jour des bonnes propriétés
   if (req.body.employee_name) {
     employee.employee_name = req.body.employee_name;
   }
@@ -55,7 +78,6 @@ app.put('/api/v1/employees/:id', (req, res) => {
 
   res.json(employee);
 });
-
 
 // Delete an employee by ID
 app.delete('/api/v1/employees/:id', (req, res) => {

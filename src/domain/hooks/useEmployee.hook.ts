@@ -4,10 +4,10 @@ import EmployeeService from "../services/employee.service";
 
 const service = EmployeeService.getInstance();
 
-export const useGetEmployeeList = () => {
+export const useGetEmployeeList = (page: number = 1, limit: number = 5) => {
   return useQuery({
-    queryKey: ["getEmployeeList"],
-    queryFn: () => service.getEmployeeList(),
+    queryKey: ["getEmployeeList", page, limit], // Inclure la pagination dans le cache
+    queryFn: () => service.getEmployeeList(page, limit),
   });
 };
 

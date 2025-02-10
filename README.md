@@ -50,3 +50,57 @@ $ npm i
 ### Formatting
 
 Prettier is our formatter of choice. We added some settings for VSCode. If you use a different IDE please adapt the settings.
+
+---
+
+## ✨ Features Implemented
+
+### ✅ **Employee Management (CRUD)**
+
+- 📌 **List employees** with pagination.
+- 📌 **Create a new employee**.
+- 📌 **View employee details**.
+- 📌 **Update employee information**.
+- 📌 **Delete an employee**.
+
+### ✅ **Backend Server (`employee-api` folder)**
+
+- 🟢 Added a **local Express.js server** to avoid API rate limit issues.
+- 🟢 Supports **CRUD operations** for employees.
+
+### ✅ **Pagination**
+
+- 🔄 Implemented **pagination** for the employee list.
+- 🔄 Users can **load more employees dynamically**.
+
+### ✅ **Testing with Cypress**
+
+- 🧪 Integrated **Cypress** for End-to-End (E2E) testing.
+- 🧪 Added **one automated test**
+
+### ✅ **Navigation Enhancements**
+
+- 🔙 Added a **Back button (←) on employee detail and edit pages** for a better user experience.
+
+---
+
+📌 Run the Local API Server (Optional)
+To avoid API rate limits, you can start the local API server:
+
+```bash
+cd employee-api
+npm install
+npm run dev
+```
+
+The local API runs at:
+http://127.0.0.1:3001.
+
+🧪 Running Cypress Tests
+To execute the Cypress End-to-End tests, run:
+
+```bash
+npx cypress run
+```
+
+This will open the Cypress UI for interactive testing.

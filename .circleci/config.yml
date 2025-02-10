@@ -1,0 +1,95 @@
+version: 2.1
+
+executors:
+  node-executor:
+    docker:
+      - image: circleci/node:20.9
+
+jobs:
+  install-and-lint:
+    executor: node-executor
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: Install Dependencies
+          command: npm install
+
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+      - run:
+          name: Check Formatting with Prettier
+          command: npm run format:check
+
+  test:
+    executor: node-executor
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: Run Unit Tests
+          command: npm run test
+
+      - run:
+          name: Start Local API Server
+          command: |
+            cd employee-api
+            npm install
+            npm run dev &
+          background: true
+
+      - run:
+          name: Run Cypress Tests
+          command: npm run test:e2e
+
+  build:
+    executor: node-executor
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: Build Next.js App
+          command: npm run build
+
+  deploy:
+    executor: node-executor
+    steps:
+      - checkout
+
+      - run:
+          name: Install Vercel CLI
+          command: npm install -g vercel
+
+      - run:
+          name: Deploy to Vercel
+          command: vercel --prod --token $VERCEL_TOKEN
+
+workflows:
+  version: 2
+  ci_cd_pipeline:
+    jobs:
+      - install-and-lint
+      - test:
+          requires:
+            - install-and-lint
+      - build:
+          requires:
+            - test
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: main
