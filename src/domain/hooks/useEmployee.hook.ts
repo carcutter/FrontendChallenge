@@ -25,7 +25,7 @@ export const useCreateEmployee = () => {
     mutationFn: (newEmployee: Omit<EmployeeModel, "id">) =>
       service.createEmployee(newEmployee),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["getEmployeeList"] }); // Rafraîchit la liste après création
+      queryClient.invalidateQueries({ queryKey: ["getEmployeeList"] }); // Refresh the list after creation
     },
   });
 };
@@ -37,8 +37,8 @@ export const useUpdateEmployee = () => {
     mutationFn: (updatedEmployee: { id: number; data: Partial<EmployeeModel> }) =>
       service.updateEmployeeById(updatedEmployee),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["getEmployeeList"] }); // Rafraîchit la liste globale
-      queryClient.invalidateQueries({ queryKey: ["getEmployeeById", variables.id] }); // Rafraîchit les détails de l’employé
+      queryClient.invalidateQueries({ queryKey: ["getEmployeeList"] }); // Refresh the global list
+      queryClient.invalidateQueries({ queryKey: ["getEmployeeById", variables.id] }); // Refresh employee details
     },
   });
 };
@@ -49,7 +49,7 @@ export const useDeleteEmployee = () => {
   return useMutation({
     mutationFn: (id: number) => service.deleteEmployeeById({ id }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["getEmployeeList"] }); // Met à jour la liste après suppression
+      queryClient.invalidateQueries({ queryKey: ["getEmployeeList"] }); // Update the list after deletion
     },
   });
 };

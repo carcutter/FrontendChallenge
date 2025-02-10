@@ -8,7 +8,7 @@ import {
 import { GetEmployeeByIdParams } from "@/domain/params/employee.param";
 
 export default class EmployeeDatasource extends EmployeeDatasourceContract {
-  private BASE_URL = "http://localhost:3001/api/v1/employees"; // URL de base de l'API
+  private BASE_URL = "http://localhost:3001/api/v1/employees"; // Base API URL
 
   public async getEmployeeList(): Promise<EmployeeListModel | undefined> {
     try {
@@ -103,7 +103,7 @@ export default class EmployeeDatasource extends EmployeeDatasourceContract {
           return undefined;
         }
 
-        // Vérifier si l'API retourne l'employé supprimé
+        // Check if the API returns the deleted employee
         const json = await response.json();
         return EmployeeSchema.parse(json[0]);
       } catch (exception) {

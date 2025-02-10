@@ -1,6 +1,6 @@
 "use client";
 
-import { useDeleteEmployee, useGetEmployeeById } from "@/domain/hooks/useGetEmployeeList.hook";
+import { useDeleteEmployee, useGetEmployeeById } from "@/domain/hooks/useEmployee.hook";
 import EmployeeCard from "@/ui/components/EmployeeCard.component";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -18,7 +18,7 @@ export default function EditEmployeePage() {
       deleteEmployee(id, {
         onSuccess: () => {
           alert("Employee deleted successfully!");
-          router.push("/"); // Redirige vers la liste des employés après suppression
+          router.push("/"); // Redirects to the employee list after deletion
         },
       });
     }
@@ -36,7 +36,7 @@ export default function EditEmployeePage() {
     <main className="flex h-screen flex-col items-start justify-start p-4 gap-4">
       {/* Back Button */}
       <button
-        onClick={() => router.back()}
+        onClick={() => router.push("/")}
         className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
       >
         ← Back

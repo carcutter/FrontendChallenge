@@ -1,6 +1,6 @@
 "use client";
 
-import { useCreateEmployee } from "@/domain/hooks/useGetEmployeeList.hook";
+import { useCreateEmployee } from "@/domain/hooks/useEmployee.hook";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -26,7 +26,7 @@ export default function CreateEmployeePage() {
       {
         onSuccess: () => {
           alert("Employee created successfully!");
-          router.push("/"); // Redirige vers la liste des employés
+          router.push("/"); // Redirects to the employee list
         },
       }
     );
@@ -43,7 +43,7 @@ export default function CreateEmployeePage() {
             type="text"
             value={employeeName}
             onChange={(e) => setEmployeeName(e.target.value)}
-            className="border px-2 py-1 rounded-md text-black bg-white" // Ajout de text-black et bg-white
+            className="border px-2 py-1 rounded-md text-black bg-white" 
             placeholder="Enter employee name"
           />
         </label>
@@ -54,7 +54,7 @@ export default function CreateEmployeePage() {
             type="number"
             value={employeeSalary}
             onChange={(e) => setEmployeeSalary(e.target.value)}
-            className="border px-2 py-1 rounded-md text-black bg-white" // Ajout de text-black et bg-white
+            className="border px-2 py-1 rounded-md text-black bg-white" 
             placeholder="Enter salary"
           />
         </label>

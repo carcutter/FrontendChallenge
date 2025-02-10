@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetEmployeeById, useUpdateEmployee } from "@/domain/hooks/useGetEmployeeList.hook";
+import { useGetEmployeeById, useUpdateEmployee } from "@/domain/hooks/useEmployee.hook";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -9,15 +9,15 @@ export default function EditEmployeePage() {
   const id = Number(employeeId);
   const router = useRouter();
 
-  // Récupère les infos de l'employé
+  // Fetch employee details
   const { data: employee, isLoading, isError } = useGetEmployeeById(id);
   const { mutate, isPending, isError: isUpdateError } = useUpdateEmployee();
 
-  // États pour les inputs
+  // States for input fields
   const [name, setName] = useState("");
   const [salary, setSalary] = useState("");
 
-  // Remplit les champs une fois les données chargées
+  // Populate input fields once data is loaded
   useEffect(() => {
     if (employee) {
       setName(employee.employee_name);
